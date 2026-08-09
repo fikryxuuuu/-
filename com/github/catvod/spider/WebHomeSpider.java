@@ -1,10 +1,9 @@
-
 package com.github.catvod.spider;
 
 import com.fongmi.core.spider.Spider;
 import android.content.Context;
 
-public class WebHomeSpider extends Spider {
+public class webhome extends Spider {
     private String webUrl;
 
     @Override
