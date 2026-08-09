@@ -1,7 +1,6 @@
-
 package com.github.catvod.spider;
 
-import com.fongmi.core.spider.Spider;
+import com.github.catvod.crawler.Spider;
 import android.content.Context;
 
 public class webhome extends Spider {
