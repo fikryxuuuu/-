@@ -1,5 +1,4 @@
-
-package com.fongmi.spider;
+package com.github.catvod.spider;
 
 import com.fongmi.core.spider.Spider;
 import android.content.Context;
