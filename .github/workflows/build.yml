@@ -64,7 +64,7 @@ jobs:
       - name: Compile Java -> .class (Java 8 bytecode)
         run: |
           mkdir -p out/classes
-          javac -source 8 -target 8 -cp $HOME/android-sdk/platforms/android-34/android.jar:stub -d out/classes com/github/catvod/spider/WebHomeSpider.java
+          javac -source 8 -target 8 -cp $HOME/android-sdk/platforms/android-34/android.jar:stub -d out/classes com/github/catvod/spider/webhome.java
 
       - name: Convert .class -> classes.dex (d8)
         run: |
@@ -73,7 +73,7 @@ jobs:
           # d8 requires Java 11+, use Java 17 installed earlier
           export JAVA_HOME=$JAVA_HOME_17_X64
           export PATH=$JAVA_HOME/bin:$PATH
-          $D8_PATH --output out out/classes/com/github/catvod/spider/WebHomeSpider.class
+          $D8_PATH --output out out/classes/com/github/catvod/spider/webhome.class
 
       - name: Package JAR
         run: |
