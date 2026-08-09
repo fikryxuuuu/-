@@ -41,9 +41,9 @@ jobs:
 
       - name: Create stub Spider API (for compilation)
         run: |
-          mkdir -p stub/com/fongmi/core/spider
-          cat > stub/com/fongmi/core/spider/Spider.java << 'EOF'
-          package com.fongmi.core.spider;
+          mkdir -p stub/com/github/catvod/crawler
+          cat > stub/com/github/catvod/crawler/Spider.java << 'EOF'
+          package com.github.catvod.crawler;
           import android.content.Context;
           public abstract class Spider {
               public void init(Context context, String extend) {}
@@ -59,7 +59,7 @@ jobs:
           package android.content;
           public class Context {}
           EOF
-          javac -d stub stub/com/fongmi/core/spider/Spider.java stub/android/content/Context.java
+          javac -d stub stub/com/github/catvod/crawler/Spider.java stub/android/content/Context.java
 
       - name: Compile Java -> .class (Java 8 bytecode)
         run: |
@@ -74,7 +74,7 @@ jobs:
           export JAVA_HOME=$JAVA_HOME_17_X64
           export PATH=$JAVA_HOME/bin:$PATH
           # Include both webhome and stub classes (Spider, Context)
-          $D8_PATH --output out out/classes/com/github/catvod/spider/webhome.class stub/com/fongmi/core/spider/Spider.class stub/android/content/Context.class
+          $D8_PATH --output out out/classes/com/github/catvod/spider/webhome.class stub/com/github/catvod/crawler/Spider.class stub/android/content/Context.class
 
       - name: Package JAR
         run: |
