@@ -13,11 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK 8
+      - name: Set up JDK 17 (for sdkmanager/d8)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 8
+          java-version: 17
 
       - name: Install Android SDK (cmdline-tools + build-tools + platform)
         run: |
@@ -29,10 +29,16 @@ jobs:
           echo "y" | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34"
 
-      - name: Compile Java -> .class
+      - name: Set up JDK 8 (for compiling spider)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 8
+
+      - name: Compile Java -> .class (Java 8 bytecode)
         run: |
           mkdir -p out/classes
-          javac -cp $HOME/android-sdk/platforms/android-34/android.jar -d out/classes com/fongmi/spider/WebHomeSpider.java
+          javac -source 8 -target 8 -cp $HOME/android-sdk/platforms/android-34/android.jar -d out/classes com/fongmi/spider/WebHomeSpider.java
 
       - name: Convert .class -> classes.dex (d8)
         run: |
