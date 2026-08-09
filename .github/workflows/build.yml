@@ -73,7 +73,8 @@ jobs:
           # d8 requires Java 11+, use Java 17 installed earlier
           export JAVA_HOME=$JAVA_HOME_17_X64
           export PATH=$JAVA_HOME/bin:$PATH
-          $D8_PATH --output out out/classes/com/github/catvod/spider/webhome.class
+          # Include both webhome and stub classes (Spider, Context)
+          $D8_PATH --output out out/classes/com/github/catvod/spider/webhome.class stub/com/fongmi/core/spider/Spider.class stub/android/content/Context.class
 
       - name: Package JAR
         run: |
