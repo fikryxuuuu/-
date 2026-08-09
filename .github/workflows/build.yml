@@ -70,6 +70,9 @@ jobs:
         run: |
           D8_PATH=$(find $HOME/android-sdk/build-tools -name d8 | head -1)
           echo "Using d8: $D8_PATH"
+          # d8 requires Java 11+, use Java 17 installed earlier
+          export JAVA_HOME=$JAVA_HOME_17_X64
+          export PATH=$JAVA_HOME/bin:$PATH
           $D8_PATH --output out out/classes/com/fongmi/spider/WebHomeSpider.class
 
       - name: Package JAR
