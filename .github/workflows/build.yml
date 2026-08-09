@@ -28,6 +28,9 @@ jobs:
           mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
           echo "y" | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34"
+          # Verify d8 exists
+          ls -la $HOME/android-sdk/build-tools/
+          ls -la $HOME/android-sdk/build-tools/*/d8
 
       - name: Set up JDK 8 (for compiling spider)
         uses: actions/setup-java@v4
@@ -64,7 +67,9 @@ jobs:
 
       - name: Convert .class -> classes.dex (d8)
         run: |
-          $HOME/android-sdk/build-tools/34.0.0/d8 --output out out/classes/com/fongmi/spider/WebHomeSpider.class
+          D8_PATH=$(find $HOME/android-sdk/build-tools -name d8 | head -1)
+          echo "Using d8: $D8_PATH"
+          $D8_PATH --output out out/classes/com/fongmi/spider/WebHomeSpider.class
 
       - name: Package JAR
         run: |
